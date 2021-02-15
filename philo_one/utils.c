@@ -17,30 +17,19 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-
-int		ft_atoi(const char *str)
+int		ft_atoi_s(char *str, size_t *res)
 {
-	int	res;
-	int	sign;
-
-	res = 0;
-	sign = 1;
-	while (*str == ' ' || *str == '\t' || *str == '\n' ||
-		   *str == '\r' || *str == '\v' || *str == '\f')
-		str++;
-	if (*str == '-')
+	if (*str == '\0')
+		return (-1);
+	*res = 0;
+	while (*str && *str <= '9' && *str >= '0')
 	{
-		sign = -1;
+		*res = 10 * (*res) + (*str - '0');
 		str++;
 	}
-	else if (*str == '+')
-		str++;
-	while (*str <= '9' && *str >= '0')
-	{
-		res = 10 * res + sign * (*str - '0');
-		str++;
-	}
-	return (res);
+	if (*str != '\0')
+		return (-1);
+	return (0);
 }
 
 void	ft_putnbr_fd(int n, int fd)

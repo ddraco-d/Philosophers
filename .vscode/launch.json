@@ -5,17 +5,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "gcc - Build and debug active file",
+			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${fileDirname}/${fileBasenameNoExtension}/philo_one/a.out",
-			"args": [],
+			"program": "${workspaceFolder}/philo_one/a.out",
+			"args": ["100", "400", "500", "600"],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}/philo_one",
 			"environment": [],
 			"console": "externalTerminal",
-			"MIMode": "lldb",
-			"preLaunchTask": "C/C++: gcc build active file"
+			"MIMode": "lldb"
 		}
 	]
 }

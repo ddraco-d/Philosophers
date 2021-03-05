@@ -3,11 +3,14 @@
 
 int main(int argc, char **argv)
 {
-	t_info info;
+	t_info	info;
+	t_ph	*ph;
 
 	if (argc != 5 && argc != 6)
 		return (ft_putstr_fd("error: bad arguments\n", 2));
-	// int check = init_args(&info, argc, argv);
+	int check = init_args(&info, argc, argv);
+	ph_init(&info, &ph);
+	threads_start(&ph);
 	// printf("-%d-\n", check);
 
 	// if (init_args(&info, argc, argv))

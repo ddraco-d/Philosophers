@@ -1,4 +1,5 @@
 #include <pthread.h>
+# include "stdio.h"
 #include <unistd.h>
 
 //потоковая функция
@@ -23,18 +24,20 @@ void threadFunc1(void* thread_data){
 }
  
 int main(){
+
+	printf("%d", (3 % 5));
  
-	//какие то данные для потока (для примера)
-	void* thread_data = NULL;
- 
-	//создаем идентификатор потока
-	pthread_t thread;
- 
-	//создаем поток по идентификатору thread и функции потока threadFunc
-	//и передаем потоку указатель на данные thread_data
-	pthread_create(&thread, NULL, threadFunc, thread_data);
-	threadFunc1(thread_data);
-	pthread_join(thread, NULL);
+//	//какие то данные для потока (для примера)
+//	void* thread_data = NULL;
+//
+//	//создаем идентификатор потока
+//	pthread_t thread;
+//
+//	//создаем поток по идентификатору thread и функции потока threadFunc
+//	//и передаем потоку указатель на данные thread_data
+//	pthread_create(&thread, NULL, threadFunc, thread_data);
+//	threadFunc1(thread_data);
+//	pthread_join(thread, NULL);
 	//ждем завершения потока
  
 	return 0;

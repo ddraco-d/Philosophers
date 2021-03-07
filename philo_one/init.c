@@ -6,15 +6,15 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:56:13 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 19:05:23 by aleksandrkomarov ###   ########.fr       */
+/*   Updated: 2021/03/07 20:15:37 by ddraco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
-int ph_init(t_info *info, t_ph **ph)
+int		ph_init(t_info *info, t_ph **ph)
 {
-	int i;
+	int	i;
 
 	if (!(*ph = (t_ph*)malloc(sizeof(t_ph) * info->amount)))
 		return (MALLOC_ERROR);
@@ -31,15 +31,15 @@ int ph_init(t_info *info, t_ph **ph)
 	return (EXIT_SUCCESS);
 }
 
-int init_mtxs(t_info *info)
+int		init_mtxs(t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (pthread_mutex_init(&info->mutex_print, NULL) ||
 		pthread_mutex_init(&info->mutex, NULL))
 		return (MUTEX_ERROR);
-	if (!(info->forks = (pthread_mutex_t *)malloc(sizeof (pthread_mutex_t)\
+	if (!(info->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)\
 			* info->amount)))
 		return (MALLOC_ERROR);
 	while (i < info->amount)
@@ -51,7 +51,7 @@ int init_mtxs(t_info *info)
 	return (EXIT_SUCCESS);
 }
 
-int init_args(t_info *info, int argc, char **argv)
+int		init_args(t_info *info, int argc, char **argv)
 {
 	if (ft_atoi_s(argv[1], (uint64_t *)&info->amount) != 0 ||\
 		ft_atoi_s(argv[2], &info->time_to_die) != 0 ||\
@@ -67,6 +67,5 @@ int init_args(t_info *info, int argc, char **argv)
 				info->time_to_sleep < 60)
 		return (BAD_ARGS);
 	info->dead = 0;
-	return (init_mtxs(info));
+	return (EXIT_SUCCESS);
 }
-

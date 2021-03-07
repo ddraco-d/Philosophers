@@ -6,55 +6,42 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 13:48:20 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 18:51:52 by aleksandrkomarov ###   ########.fr       */
+/*   Updated: 2021/03/07 20:16:01 by ddraco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
-# include "philo.h"
+#include "philo.h"
 
-void *monitor(void *v_ph)
+void	*monitor(void *v_ph)
 {
-	t_ph *ph;
-	t_info *info;
-	uint64_t curr_time;
+	t_ph	*ph;
+	t_info	*info;
 
 	ph = (t_ph *)v_ph;
 	info = ph->info;
 	pthread_detach(ph->status_thread);
-	while (info->nbr_each_eat ? ph->amount_of_meals != info->nbr_each_eat :
-		true)
+	while (1)
 	{
-		pthread_mutex_lock(&info->mutex);
-		curr_time = cur_time();
-		if (curr_time > ph->lst_meal)
+		if (info->nbr_each_eat == 0 || info->nbr_each_eat !=
+			ph->amount_of_meals)
 		{
-			messages(ph, DEAD);
-			info->dead = 1;
+			pthread_mutex_lock(&info->mutex);
+			if (cur_time() > ph->lst_meal)
+			{
+				messages(ph, DEAD);
+				info->dead = 1;
+				pthread_mutex_unlock(&info->mutex);
+				break ;
+			}
 			pthread_mutex_unlock(&info->mutex);
-			break;
+			usleep(1000);
 		}
-		pthread_mutex_unlock(&info->mutex);
-		usleep(1000);
 	}
-//	if (info->nbr_each_eat == 0 || info->nbr_each_eat != ph->amount_of_meals)
-//		while (1)
-//		{
-//			pthread_mutex_lock(&info->mutex);
-//			if (cur_time() > ph->lst_meal)
-//			{
-//				messages(ph, DEAD);
-//				info->dead = 1;
-//				pthread_mutex_unlock(&info->mutex);
-//				break ;
-//			}
-//			pthread_mutex_unlock(&info->mutex);
-//			usleep(1000);
-//		}
 	return ((void *)EXIT_SUCCESS);
 }
 
-void *do_work(void *v_ph)
+void	*do_work(void *v_ph)
 {
 	uint64_t	c_time;
 	t_ph		*ph;
@@ -67,50 +54,40 @@ void *do_work(void *v_ph)
 	ph->lst_meal = c_time + ph->info->time_to_die;
 	if (pthread_create(&ph->status_thread, NULL, &monitor, v_ph))
 		return ((void *)EXIT_FAILURE);
-
-	if ((ph->place - 1) % 2)
+	if (ph->place % 2 == 0)
 		better_usleep(info->time_to_eat);
-//	if (ph->place % 2 == 0)
-//		better_usleep(info->time_to_eat);
-//	if (ph->info->nbr_each_eat == 0 || ph->info->nbr_each_eat != ph->amount_of_meals)
-//	{
-//		while (ph->info->dead == 0)
-//		{
-//			// ft_putstr_fd("printf is shit", STDOUT_FILENO);
-//			eat_and_sleep(ph);
-//			messages(ph, THINKING);
-////			usleep(50000);
-//		}
-//	}
-	while (!ph->info->dead && (info->nbr_each_eat ? ph->amount_of_meals !=
-		info->nbr_each_eat : true))
+	while (ph->info->dead == 0)
 	{
-		// ft_putstr_fd("printf is shit", STDOUT_FILENO);
-		eat_and_sleep(ph);
-		messages(ph, THINKING);
+		if (ph->info->nbr_each_eat == 0 || ph->info->nbr_each_eat !=\
+			ph->amount_of_meals)
+		{
+			eat_and_sleep(ph);
+			messages(ph, THINKING);
+		}
 	}
 	return ((void *)EXIT_SUCCESS);
 }
 
-int threads_start(t_ph **ph)
+int		threads_start(t_ph **ph)
 {
-	int i;
+	int	i;
 
+	i = 0;
 	if (((*ph)->info->start = cur_time()) == 1)
 		return (EXIT_FAILURE);
-	i = 0;
 	while (i < (*ph)->info->amount)
 	{
-		if (pthread_create(&(*ph + i)->thread, NULL, &do_work, (void *)(*ph + i)))
+		if (pthread_create(&(*ph + i)->thread, NULL, &do_work,\
+			(void *)(*ph + i)))
 			return (PTHREAD_ERROR);
 		i++;
 	}
 	return (EXIT_SUCCESS);
 }
 
-void rez(t_ph **ph, t_info *info)
+void	pt_join(t_ph **ph, t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < info->amount)
@@ -118,5 +95,4 @@ void rez(t_ph **ph, t_info *info)
 		pthread_join((*ph + i)->thread, NULL);
 		i++;
 	}
-	
 }

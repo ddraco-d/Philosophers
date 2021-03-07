@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:56:22 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 19:00:24 by aleksandrkomarov ###   ########.fr       */
+/*   Updated: 2021/03/07 20:15:56 by ddraco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,25 +54,18 @@ typedef struct		s_ph
 	int				amount_of_meals;
 	uint64_t		lst_meal;
 	t_info			*info;
-
-//	int 			is_eating; ?
-
 }					t_ph;
 
-
-int		ft_atoi_s(char *str, uint64_t *res);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_putstr_fd(char *s, int fd);
-int		init_args(t_info *info, int argc, char **argv);
-uint64_t	cur_time(void);
-int		ph_init(t_info *info, t_ph **ph);
-int		threads_start(t_ph **ph);
-void	better_usleep(uint64_t msec);
-int		messages(t_ph *ph, int msg_type);
-void	eat_and_sleep(t_ph *ph);
-void	rez(t_ph **ph, t_info *info);
-int		ft_atoi(const char *str);
-
+int					ft_atoi_s(char *str, uint64_t *res);
+void				ft_putchar_fd(char c, int fd);
+void				ft_putnbr_fd(int n, int fd);
+int					ft_putstr_fd(char *s, int fd);
+int					init_args(t_info *info, int argc, char **argv);
+uint64_t			cur_time(void);
+int					ph_init(t_info *info, t_ph **ph);
+int					threads_start(t_ph **ph);
+void				better_usleep(uint64_t msec);
+int					messages(t_ph *ph, int msg_type);
+void				eat_and_sleep(t_ph *ph);
+int					init_mtxs(t_info *info);
 #endif

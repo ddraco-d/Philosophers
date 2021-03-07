@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/07 20:06:28 by ddraco            #+#    #+#             */
+/*   Updated: 2021/03/07 20:15:53 by ddraco           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-void clear_mem(t_ph **ph)
+int			clear_mem(t_ph **ph, int status)
 {
-	int i;
+	int		i;
 
 	pthread_mutex_destroy(&(*ph)->info->mutex);
 	pthread_mutex_destroy(&(*ph)->info->mutex_print);
@@ -20,26 +32,30 @@ void clear_mem(t_ph **ph)
 		}
 		free(*ph);
 	}
+	if (status == EXIT_FAILURE)
+		return (ft_putstr_fd("error: failure\n", 2));
+	return (status);
 }
 
-
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_info	info;
 	t_ph	*ph;
+	int		i;
 
+	i = 0;
 	if (argc != 5 && argc != 6)
 		return (ft_putstr_fd("error: bad arguments\n", 2));
-	init_args(&info, argc, argv);
-	ph_init(&info, &ph);
-	threads_start(&ph);
-	rez(&ph, &info);
-	clear_mem(&ph);
-	// printf("-%d-\n", check);
-
-	// if (init_args(&info, argc, argv))
-		// return();
-	
-//	printf("%d\n%zu\n%zu\n%zu\n", info.amount, info.time_to_die, info.time_to_eat, info.time_to_sleep);
-//	printf("%zu\n", info.nbr_each_eat);
+	if (init_args(&info, argc, argv))
+		return (ft_putstr_fd("error: bad arguments\n", 2));
+	if (init_mtxs(&info) || ph_init(&info, &ph))
+		return (clear_mem(&ph, EXIT_FAILURE));
+	if (threads_start(&ph))
+		return (clear_mem(&ph, EXIT_FAILURE));
+	while (i < info.amount)
+	{
+		pthread_join((ph + i)->thread, NULL);
+		i++;
+	}
+	return (clear_mem(&ph, EXIT_SUCCESS));
 }

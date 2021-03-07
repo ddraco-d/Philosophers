@@ -5,15 +5,15 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "(lldb) Launch",
+			"name": "(lldb) Launch1",
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/philo_one/a.out",
-			"args": ["100", "400", "500", "600"],
+			"args": ["4", "310", "200", "100"],
 			"stopAtEntry": true,
 			"cwd": "${workspaceFolder}/philo_one",
 			"environment": [],
-			"console": "externalTerminal",
+			"externalConsole": false,
 			"MIMode": "lldb"
 		}
 	]

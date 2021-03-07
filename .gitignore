@@ -1,0 +1,8 @@
+.idea
+.vscode
+a.out.dSYM
+a.out
+cmake-build-debug
+philo_one/.idea
+philo_one/cmake-build-debug
+philo_one/CMakeLists.txt

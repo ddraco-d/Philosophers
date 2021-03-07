@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/06 21:56:13 by ddraco            #+#    #+#             */
+/*   Updated: 2021/03/07 19:05:23 by aleksandrkomarov ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "philo.h"
 
 int ph_init(t_info *info, t_ph **ph)
@@ -11,8 +23,8 @@ int ph_init(t_info *info, t_ph **ph)
 	{
 		(*ph)[i].place = i + 1;
 		(*ph)[i].amount_of_meals = 0;
-		(*ph)[i].l_fork = info->forks[i];
-		(*ph)[i].r_fork = info->forks[(i + 1) % info->amount];
+		(*ph)[i].l_fork = &info->forks[i];
+		(*ph)[i].r_fork = &info->forks[(i + 1) % info->amount];
 		(*ph)[i].info = info;
 		i++;
 	}
@@ -41,12 +53,12 @@ int init_mtxs(t_info *info)
 
 int init_args(t_info *info, int argc, char **argv)
 {
-	if (ft_atoi_s(argv[1], (size_t *) &info->amount) != 0 ||\
+	if (ft_atoi_s(argv[1], (uint64_t *)&info->amount) != 0 ||\
 		ft_atoi_s(argv[2], &info->time_to_die) != 0 ||\
 			ft_atoi_s(argv[3], &info->time_to_eat) != 0 ||\
 				ft_atoi_s(argv[4], &info->time_to_sleep) != 0)
 		return (BAD_ARGS);
-	if (argc == 6 && ft_atoi_s(argv[5], &info->nbr_each_eat) != 0)
+	if (argc == 6 && ft_atoi_s(argv[5], (uint64_t *)&info->nbr_each_eat) != 0)
 		return (BAD_ARGS);
 	else if (argc == 5)
 		info->nbr_each_eat = 0;
@@ -54,6 +66,7 @@ int init_args(t_info *info, int argc, char **argv)
 			info->time_to_die < 60 || info->time_to_eat < 60 ||\
 				info->time_to_sleep < 60)
 		return (BAD_ARGS);
+	info->dead = 0;
 	return (init_mtxs(info));
 }
 

@@ -5,3 +5,4 @@ cmake-build-debug
 philo_one/.idea
 philo_one/cmake-build-debug
 philo_one/CMakeLists.txt
+.DS_Srore

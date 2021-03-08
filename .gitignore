@@ -1,5 +1,4 @@
 .idea
-.vscode
 a.out.dSYM
 a.out
 cmake-build-debug

@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 12:58:40 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 20:15:16 by ddraco           ###   ########.fr       */
+/*   Updated: 2021/03/08 12:08:04 by aleksandrkomarov ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	eat_and_sleep(t_ph *ph)
 {
 	if (ph->info->dead || (ph->info->nbr_each_eat &&\
-		ph->amount_of_meals == ph->info->nbr_each_eat))
+		ph->meals == ph->info->nbr_each_eat))
 		return ;
 	pthread_mutex_lock(ph->l_fork);
 	messages(ph, FORK_TAKEN);
@@ -25,7 +25,7 @@ void	eat_and_sleep(t_ph *ph)
 	ph->lst_meal = cur_time() + ph->info->time_to_die;
 	messages(ph, EATING);
 	pthread_mutex_unlock(&ph->info->mutex);
-	ph->amount_of_meals += 1;
+	ph->meals += 1;
 	better_usleep(ph->info->time_to_eat);
 	pthread_mutex_unlock(ph->l_fork);
 	pthread_mutex_unlock(ph->r_fork);

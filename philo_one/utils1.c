@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:56:30 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 20:16:23 by ddraco           ###   ########.fr       */
+/*   Updated: 2021/03/08 12:08:04 by aleksandrkomarov ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char					*get_message(int msg_type)
 int							messages(t_ph *ph, int msg_type)
 {
 	if (ph->info->dead || (ph->info->nbr_each_eat &&\
-		ph->amount_of_meals == ph->info->nbr_each_eat))
+		ph->meals == ph->info->nbr_each_eat))
 		return (EXIT_FAILURE);
 	pthread_mutex_lock(&ph->info->mutex_print);
 	printf("%d %d %s", (int)(cur_time() - ph->info->start),\

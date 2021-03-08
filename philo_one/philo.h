@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:56:22 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 20:15:56 by ddraco           ###   ########.fr       */
+/*   Updated: 2021/03/08 12:08:04 by aleksandrkomarov ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_ph
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	int				place;
-	int				amount_of_meals;
+	int				meals;
 	uint64_t		lst_meal;
 	t_info			*info;
 }					t_ph;

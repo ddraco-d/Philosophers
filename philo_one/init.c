@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 21:56:13 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/07 20:15:37 by ddraco           ###   ########.fr       */
+/*   Updated: 2021/03/08 12:08:04 by aleksandrkomarov ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ph_init(t_info *info, t_ph **ph)
 	while (i < info->amount)
 	{
 		(*ph)[i].place = i + 1;
-		(*ph)[i].amount_of_meals = 0;
+		(*ph)[i].meals = 0;
 		(*ph)[i].l_fork = &info->forks[i];
 		(*ph)[i].r_fork = &info->forks[(i + 1) % info->amount];
 		(*ph)[i].info = info;

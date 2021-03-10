@@ -6,7 +6,7 @@
 #    By: ddraco <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/07 19:56:09 by ddraco            #+#    #+#              #
-#    Updated: 2021/03/08 12:08:04 by aleksandrkomarov ###   ########.fr        #
+#    Updated: 2021/03/10 11:01:45 by ddraco           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,12 @@ OBJ = $(SRC:.c=.o)
 
 HEADER = philo.h
 
-FLAGS = -Wall -Werror -Wextra -I./includes
+CFLAGS = -Wall -Werror -Wextra -I.
 
 all: $(NAME)
 
 $(NAME):$(OBJ)
-	cc -o $(NAME) $(FLAGS) $(OBJ)
+	cc -o $(NAME) $(CFLAGS) $(OBJ)
 
 clean:
 	rm -rf $(OBJ)

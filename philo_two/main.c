@@ -6,7 +6,7 @@
 /*   By: ddraco <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/07 20:06:28 by ddraco            #+#    #+#             */
-/*   Updated: 2021/03/08 19:32:20 by ddraco           ###   ########.fr       */
+/*   Updated: 2021/03/10 11:00:41 by ddraco           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int			clear_mem(t_ph **ph, int status)
 {
-	int		i;
-
 	sem_unlink("forks");
 	sem_unlink("sem");
 	sem_unlink("print");
